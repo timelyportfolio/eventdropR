@@ -1,15 +1,18 @@
-#' <Add Title>
+#' Create an EventDrop timeline
 #'
 #' <Add Description>
 #'
 #' @import htmlwidgets
 #'
 #' @export
-eventdrop <- function(message, width = NULL, height = NULL) {
+eventdrop <- function(
+  data = NULL, ...,
+  width = NULL, height = NULL, elementId = NULL
+) {
 
   # forward options using x
   x = list(
-    message = message
+    data = data
   )
 
   # create widget
@@ -18,7 +21,8 @@ eventdrop <- function(message, width = NULL, height = NULL) {
     x,
     width = width,
     height = height,
-    package = 'eventdropR'
+    package = 'eventdropR',
+    elementId = elementId
   )
 }
 

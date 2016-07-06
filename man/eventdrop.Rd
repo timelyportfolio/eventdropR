@@ -2,9 +2,10 @@
 % Please edit documentation in R/eventdrop.R
 \name{eventdrop}
 \alias{eventdrop}
-\title{<Add Title>}
+\title{Create an EventDrop timeline}
 \usage{
-eventdrop(message, width = NULL, height = NULL)
+eventdrop(data = NULL, ..., width = NULL, height = NULL,
+  elementId = NULL)
 }
 \description{
 <Add Description>
