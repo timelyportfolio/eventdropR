@@ -1,0 +1,14 @@
+# CHANGELOG
+
+## 0.3.0
+
+* API Change: The data for each event line object must now be in the `data` property (was `date`).
+* Pass any data object to each drop and specify the date property with a callback.
+* The SVG is now responsive and fit with its parent
+
+## 0.2.0
+
+* Display metaballs by default instead of simple dots
+* Adding `eventClick` event handler on drops
+* Use of Webpack instead of Babel for development tasks
+* Full rewrite of the code base for better code splitting (may cause some BC breaks)
