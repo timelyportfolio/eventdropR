@@ -6,13 +6,15 @@
 #'
 #' @export
 eventdrop <- function(
-  data = NULL, ...,
+  data = NULL, name = NULL, date = NULL, ...,
   width = NULL, height = NULL, elementId = NULL
 ) {
 
   # forward options using x
   x = list(
     data = data,
+    name = name,
+    date = date,
     options = list(...)
   )
 

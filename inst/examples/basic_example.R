@@ -12,4 +12,48 @@ df <- data.frame(
   stringsAsFactors = FALSE
 )
 
-eventdrop(df)
+# defaults
+# date argument not needed since the date is in column date
+eventdrop(
+  df,
+  name = "group" #if df column named "name" would not need
+)
+
+# demonstrate how to set some options
+eventdrop(
+  df,
+  name = "group",
+  labelWidth = 20,
+  hasBottomAxis = TRUE,
+  eventHover = htmlwidgets::JS('function(d){console.log(d)}')
+)
+
+# demonstrate how to use with shiny and get events
+#  can easily build this into our htmlwidget
+ed <- eventdrop(
+  df,
+  name = "group",
+  eventClick = htmlwidgets::JS(
+    '
+function(d){
+  console.log(d);
+  if(typeof(Shiny)!=="undefined") {
+    Shiny.onInputChange("eventdrop_click", {data:d});
+  }
+}
+'
+  )
+)
+
+ed
+
+# now integrate in simple shiny app
+library(shiny)
+shinyApp(
+  ui = ed,
+  server = function(input, output, session){
+    observeEvent(input$eventdrop_click,{
+      str(input$eventdrop_click)
+    })
+  }
+)

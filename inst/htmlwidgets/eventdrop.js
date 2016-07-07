@@ -27,14 +27,14 @@ HTMLWidgets.widget({
           var height = el.node().getBoundingClientRect().height;
 
           // get start and end times based on the range of data
-          var endTime = d3.max(x.data[x.options.date || "date"]);
-          var startTime = d3.min(x.data[x.options.date || "date"]);
+          var endTime = d3.max(x.data[x.date || "date"]);
+          var startTime = d3.min(x.data[x.date || "date"]);
 
           // assume data from R data.frame
           var df = HTMLWidgets.dataframeToD3(x.data);
           df = d3.nest()
             .key(function(d){
-              return d[x.options.name || "name"]
+              return d[x.name || "name"]
             })
             .entries(df)
             .map(function(d){
@@ -57,15 +57,27 @@ HTMLWidgets.widget({
           // set defaults which we can override later
           //   by x.options
           eventDropsChart
-            .width(width)
+            //.width(width)
+            // margin don't behave the way I expect
+            //.margin({top: 40, bottom: 20, left: 75, right: 50})
+            .labelsWidth(100)
             .eventLineColor(function (datum, index) {
                 return color(index);
             })
             .start(new Date(startTime))
             .end(new Date(endTime))
             .date(function(d){
-              return new Date(d[x.options.date || 'date']);
+              return new Date(d[x.date || 'date']);
             });
+
+          // loop through x.options and try to apply them
+          //   to our eventDropsChart
+          Object.keys(x.options)
+            .forEach(function(ky){
+              try{
+                eventDropsChart[ky](x.options[ky]);
+              } catch(e) { }
+            })
 
           // bind data with DOM
           el.datum(df);
@@ -88,7 +100,9 @@ HTMLWidgets.widget({
       },
 
       resize: function(width, height) {
-
+        // use pull request 82
+        //  for resize when ready
+        //  https://github.com/marmelab/EventDrops/pull/82
         this.drawEventDrop(el, instance);
 
       },
