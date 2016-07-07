@@ -10,60 +10,86 @@ HTMLWidgets.widget({
 
     return {
 
-      drawEventDrop: function(el, x, inst){
-          // create dataset
-          var data = [];
-          var names = ["Lorem", "Ipsum", "Dolor", "Sit", "Amet", "Consectetur", "Adipisicing", "elit", "Eiusmod tempor", "Incididunt"];
-          var endTime = Date.now();
-          var month = 30 * 24 * 60 * 60 * 1000;
-          var startTime = endTime - 6 * month;
+      drawEventDrop: function(el, instance){
 
-          function createEvent (name, maxNbEvents) {
-              maxNbEvents = maxNbEvents | 200;
-              var event = {
-                  name: name,
-                  data: []
-              };
-              // add up to 200 events
-              var max =  Math.floor(Math.random() * maxNbEvents);
-              for (var j = 0; j < max; j++) {
-                  var time = (Math.random() * (endTime - startTime)) + startTime;
-                  event.data.push(new Date(time));
-              }
+          var x = instance.x;
 
-              return event;
-          }
-          for (var i = 0; i < 10; i++) {
-              data.push(createEvent(names[i]));
-          }
+          // for convenience get d3 selected el
+          el = d3.select(el);
+
+          // brute force way to clean out our container element
+          //  for dynamic situations, since EventDrops does
+          //  not support animated updates
+          el.selectAll('*').remove();
+
+          // get height and width
+          var width = el.node().getBoundingClientRect().width;
+          var height = el.node().getBoundingClientRect().height;
+
+          // get start and end times based on the range of data
+          var endTime = d3.max(x.data[x.options.date || "date"]);
+          var startTime = d3.min(x.data[x.options.date || "date"]);
+
+          // assume data from R data.frame
+          var df = HTMLWidgets.dataframeToD3(x.data);
+          df = d3.nest()
+            .key(function(d){
+              return d[x.options.name || "name"]
+            })
+            .entries(df)
+            .map(function(d){
+              // rename to name and data which are the defaults
+              //  for EventDrops
+              d.name = d.key;
+              d.data = d.values;
+              // delete these properties since we renamed
+              //   probably better way to handle
+              delete(d.key);
+              delete(d.values);
+              return d;
+            });
 
           var color = d3.scale.category20();
 
           // create chart function
-          var eventDropsChart = d3.chart.eventDrops()
-              .eventLineColor(function (datum, index) {
-                  return color(index);
-              })
-              .start(new Date(startTime))
-              .end(new Date(endTime));
+          var eventDropsChart = d3.chart.eventDrops();
+
+          // set defaults which we can override later
+          //   by x.options
+          eventDropsChart
+            .width(width)
+            .eventLineColor(function (datum, index) {
+                return color(index);
+            })
+            .start(new Date(startTime))
+            .end(new Date(endTime))
+            .date(function(d){
+              return new Date(d[x.options.date || 'date']);
+            });
 
           // bind data with DOM
-          var element = d3.select(el).datum(data);
+          el.datum(df);
 
           // draw the chart
-          eventDropsChart(element);
+          eventDropsChart(el);
+
+          // add eventDrops to instance
+          instance.eventdrop = eventDropsChart;
+
       },
 
       renderValue: function(x) {
 
-        this.drawEventDrop(el);
+        // add our x (data) to instance
+        instance.x = x;
 
+        this.drawEventDrop(el, instance);
 
       },
 
       resize: function(width, height) {
 
-        // TODO: code to re-render the widget with a new size
+        this.drawEventDrop(el, instance);
 
       },
 

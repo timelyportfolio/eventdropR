@@ -7,4 +7,4 @@ dependencies:
     version: 0.2.0
     src: htmlwidgets/lib/EventDrops/dist
     script: eventDrops.js
-    stylesheet: evenDrops.css
+    stylesheet: eventDrops.css

@@ -12,13 +12,14 @@ eventdrop <- function(
 
   # forward options using x
   x = list(
-    data = data
+    data = data,
+    options = list(...)
   )
 
   # create widget
   htmlwidgets::createWidget(
     name = 'eventdrop',
-    x,
+    x = x,
     width = width,
     height = height,
     package = 'eventdropR',
