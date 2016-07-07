@@ -4,8 +4,8 @@
 \alias{eventdrop}
 \title{Create an EventDrop timeline}
 \usage{
-eventdrop(data = NULL, ..., width = NULL, height = NULL,
-  elementId = NULL)
+eventdrop(data = NULL, name = NULL, date = NULL, ..., width = NULL,
+  height = NULL, elementId = NULL)
 }
 \description{
 <Add Description>
