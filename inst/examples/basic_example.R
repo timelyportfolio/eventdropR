@@ -23,9 +23,9 @@ eventdrop(
 eventdrop(
   df,
   name = "group",
-  labelWidth = 20,
+  labelsWidth = 150,
   hasBottomAxis = TRUE,
-  eventHover = htmlwidgets::JS('function(d){console.log(d)}')
+  mouseover = htmlwidgets::JS('function(d){console.log(d)}')
 )
 
 # demonstrate how to use with shiny and get events
@@ -33,7 +33,7 @@ eventdrop(
 ed <- eventdrop(
   df,
   name = "group",
-  eventClick = htmlwidgets::JS(
+  mouseover = htmlwidgets::JS(
     '
 function(d){
   console.log(d);

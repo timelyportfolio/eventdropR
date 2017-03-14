@@ -4,6 +4,7 @@
 #' for \href{https://github.com/marmelab/EventDrop}{EventDrop}
 #' timelines.
 #'
+#' @example ./inst/examples/basic_example.R
 #' @import htmlwidgets
 #'
 #' @export
