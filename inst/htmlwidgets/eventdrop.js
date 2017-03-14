@@ -49,10 +49,10 @@ HTMLWidgets.widget({
               return d;
             });
 
-          var color = d3.scale.category20();
+          var color = d3.scaleOrdinal(d3.schemeCategory20);
 
           // create chart function
-          var eventDropsChart = d3.chart.eventDrops();
+          var eventDropsChart = eventDrops.default();
 
           // set defaults which we can override later
           //   by x.options

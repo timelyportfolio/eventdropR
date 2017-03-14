@@ -3,4 +3,5 @@
 export(eventdrop)
 export(eventdropOutput)
 export(renderEventdrop)
+import(htmltools)
 import(htmlwidgets)

@@ -1,12 +1,39 @@
 Package: eventdropR
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
-Encoding: UTF-8
-LazyData: true
+Title: EventDrops in R
+Version: 0.0.0.9000
+Date: 2017-03-14
+Authors@R: c(
+      person(
+        "Mike", "Bostock"
+        , role = c("aut", "cph")
+        , comment = "d3.js library, http://d3js.org"
+      ),
+      person(
+        "Michel", "Thiery"
+        , role = c("aut", "cph")
+        , comment = "EventDrops library in htmlwidgets/lib, https://github.com/marmelab/EventDrops"
+      ),
+      person(
+        "Kent", "Russell"
+        , role = c("aut", "cre")
+        , comment = "R interface"
+        , email = "kent.russell@timelyportfolio.com"
+      )
+    )
+Maintainer: Kent Russell <kent.russell@timelyportfolio.com>
+URL: https://github.com/timelyportfolio/eventdropR
+BugReports: https://github.com/timelyportfolio/eventdropR/issues
+Description: Make interactive 'EventDrops' time series diagrams in R with the
+    convenience and infrastructure of an 'htmlwidget'.
+License: MIT + file LICENSE
+LazyData: TRUE
+Imports:
+    d3r,
+    htmlwidgets,
+    htmltools
+Suggests:
+    jsonlite,
+    knitr,
+    markdown,
+    pipeR
 RoxygenNote: 5.0.1

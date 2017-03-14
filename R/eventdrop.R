@@ -1,6 +1,8 @@
 #' Create an EventDrop timeline
 #'
-#' <Add Description>
+#' eventdrop provides an interactive \code{d3.js} htmlwidget
+#' for \href{https://github.com/marmelab/EventDrop}{EventDrop}
+#' timelines.
 #'
 #' @import htmlwidgets
 #'
@@ -55,4 +57,13 @@ eventdropOutput <- function(outputId, width = '100%', height = '400px'){
 renderEventdrop <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, eventdropOutput, env, quoted = TRUE)
+}
+
+#' @import htmltools
+#' @keywords internal
+eventdrop_html <- function(id, style, class, ...){
+  tagList(
+    tags$div( id = id, class = class, style = style, ...),
+    d3r::d3_dep_v4()
+  )
 }

@@ -8,6 +8,8 @@ eventdrop(data = NULL, name = NULL, date = NULL, ..., width = NULL,
   height = NULL, elementId = NULL)
 }
 \description{
-<Add Description>
+eventdrop provides an interactive \code{d3.js} htmlwidget
+for \href{https://github.com/marmelab/EventDrop}{EventDrop}
+timelines.
 }
 
